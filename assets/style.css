@@ -169,7 +169,7 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+#portfolio input, input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;

@@ -69,8 +69,7 @@ function displayWorks(works){
 function getAllWorks(worksCategories){
     worksCategories.forEach(categoryType=>{
         let currentCategory = document.querySelectorAll(`.category${categoryType.id}`);
-        AllElements.push(currentCategory);
-        //console.log(AllElements);        
+        AllElements.push(currentCategory);      
     });
 }
 //fonction pour tout réafficher
@@ -116,9 +115,7 @@ function createFilters(categories){
         buttonFilter.value = categoryName.name;
         buttonFilter.id = categoryName.id;
         buttonFilter.addEventListener("click", function(){
-            console.log(AllElements);
             let currentSelection = document.querySelectorAll(`.category${buttonFilter.id}`);
-            console.log(currentSelection);
             hideSelection(AllElements);
             refreshWorks(currentSelection);
         });

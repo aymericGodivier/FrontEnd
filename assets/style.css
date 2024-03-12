@@ -98,6 +98,12 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+nav a {
+	text-decoration: none;
+	color: inherit;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -137,7 +143,7 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+#contact,#login {
 	width: 50%;
 margin: auto;
 }
@@ -148,20 +154,20 @@ margin: auto;
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -169,7 +175,7 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#portfolio input, input[type="submit"]{
+input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -178,6 +184,50 @@ margin: auto;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+.filter-buttons {
+	display: flex;
+	justify-content: center;
+}
+
+#portfolio input{
+	font-family: 'Syne';
+	font-weight: 700;
+	height: 40px;
+	color: #1D6154;
+	border: 2px solid;
+	border-color: #1D6154;
+	background-color: white;
+	margin : 8px;
+	margin-bottom: 24px;
+	width: fit-content;
+	min-width: 100px;
+	text-align: center;
+	border-radius: 60px;
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
+.login-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+.login-main{
+	height: 60%;
+}
+
+#login h2 {
+	text-align: center;
+}
+
+#login li {
+	text-align: center;
+	list-style: none;
+	text-decoration: underline;	
 }
 
 footer nav ul {

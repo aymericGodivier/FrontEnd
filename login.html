@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script defer src="./assets/script.js"></script>
 </head>
-<body>
+<body class="login-body">
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -23,18 +23,19 @@
 		</ul>
 	</nav>
 </header>
-<main>
-    <h2>Log In</h2>
-    <form>
-        <label for="email">E-mail</label>
-        <input type="email" id="email" required>
-        <label for="password">mot de passe</label>
-        <input type="password" id="password" required>
-        <input type="submit" value="Se connecter">
-    </form>
-    <li>Mot de passe oublié</li>
+<main class="login-main">
+    <section id="login">
+        <h2>Log In</h2>
+        <form>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" required>
+            <input type="submit" value="Se connecter">
+        </form>
+        <li>Mot de passe oublié</li>
+    </section>    
 </main>
-
 <footer>
 	<nav>
 		<ul>

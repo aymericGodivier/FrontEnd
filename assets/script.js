@@ -4,7 +4,8 @@ let divFilters = document.querySelector(".filter-buttons");
 let AllElements = [];
 
 //appel api GET /works
-fetch('http://localhost:5678/api/works', {
+function fetchWorks(){
+    fetch('http://localhost:5678/api/works', {
     method: 'GET',
     headers: {
         'Accept': 'application/json'
@@ -22,9 +23,11 @@ fetch('http://localhost:5678/api/works', {
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la requête:', error);
     });
+}
 
 //appel api GET/categories
-fetch('http://localhost:5678/api/categories', {
+function fetchCategories(){
+    fetch('http://localhost:5678/api/categories', {
     method: 'GET',
     headers: {
         'Accept': 'application/json'
@@ -44,6 +47,11 @@ fetch('http://localhost:5678/api/categories', {
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la requête:', error);
     });
+}
+
+//appel des deux fonctions de fetch
+fetchWorks();
+fetchCategories();
 
 //fonction pour afficher les traveaux dans le HTML
 function displayWorks(works){

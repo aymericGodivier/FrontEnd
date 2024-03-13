@@ -143,9 +143,9 @@ nav a {
 	width: 100%;
 
 }
-#contact,#login {
+#contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -209,6 +209,12 @@ input[type="submit"]{
 	padding-right: 14px;
 }
 
+#login {
+	width: 50%;
+	margin: auto;
+	margin-top: 20px;
+}
+
 .login-body {
 	display: flex;
 	flex-direction: column;
@@ -218,10 +224,24 @@ input[type="submit"]{
 
 .login-main{
 	height: 60%;
+	display: flex;
+	flex-direction: column;
 }
 
 #login h2 {
 	text-align: center;
+}
+
+#login span {
+	display: block;
+	text-align: center;
+	color: red;
+	font-size: 1em;
+	margin-top: 2em;
+}
+
+#login form {
+	margin-top: 0;
 }
 
 #login li {

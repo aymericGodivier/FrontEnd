@@ -2,6 +2,7 @@
 let worksGallery = document.querySelector(".gallery");
 let divFilters = document.querySelector(".filter-buttons");
 let AllElements = [];
+let currentSelectedFilter;
 
 //appel api GET /works
 function fetchWorks(){
@@ -108,11 +109,16 @@ function hideSelection(listOfWorks){
 function createFilterAll (categories){
     let buttonAll = document.createElement("input");
     buttonAll.type = "button";
-    buttonAll.value = "Tous";     
+    buttonAll.value = "Tous";
+    buttonAll.classList.add("button-selected");     
     buttonAll.addEventListener("click", function() {
         refreshAll(AllElements);
+        currentSelectedFilter.classList.remove("button-selected"); 
+        buttonAll.classList.add("button-selected");
+        currentSelectedFilter=this; 
     });
     divFilters.appendChild(buttonAll);
+    currentSelectedFilter = buttonAll;
 }
 
 //fonction pour créer les boutons de filtres
@@ -126,6 +132,9 @@ function createFilters(categories){
             let currentSelection = document.querySelectorAll(`.category${buttonFilter.id}`);
             hideSelection(AllElements);
             refreshWorks(currentSelection);
+            currentSelectedFilter.classList.remove("button-selected"); 
+            this.classList.add("button-selected");
+            currentSelectedFilter=this;
         });
         divFilters.appendChild(buttonFilter);
     });

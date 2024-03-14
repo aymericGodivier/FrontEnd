@@ -47,6 +47,25 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
+.bandeau {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: black;
+	color: white;
+	padding: 10px;
+	align-items: center;
+	justify-content: center;
+}
+
+.icone {
+	max-width: 1em;
+	margin-right: 10px;
+}
+
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -214,6 +233,62 @@ input[type="submit"]{
 	color: white !important;
 }
 
+#title-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#modifier{
+	display: none;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 2em;
+	margin-left: 2em;
+}
+
+#modifier img{
+	max-width: 1em;
+	margin-right: 0.8em;
+}
+
+#modale {
+	display: none;
+	position: fixed; 
+	top: 30%;
+	left: 35%; 
+	right: 35%; 
+	bottom: 25%; 
+	background-color: white;
+	flex-direction: column; 
+	align-items: center; 
+	z-index: 9999;
+	border-radius: 15px; 
+
+}
+
+#close-modale {
+	position: relative;
+	margin-top: 1em;
+	margin-right: 1em;
+	margin-left: auto;
+	max-width: 1em;
+}
+
+#modale h3{
+	font-size: 2.5em;
+	margin-top: 1.5em;
+}
+
+#gallery-modale {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	height: 200px;
+	border-bottom: 3px solid gray;
+	width: 75%;
+}
+
 #login {
 	width: 50%;
 	margin: auto;
@@ -260,4 +335,5 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
 

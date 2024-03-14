@@ -12,6 +12,10 @@
 	<script defer src="./assets/script.js"></script>
 </head>
 <body>
+	<div id="bandeau" class="bandeau">
+		<img src="./assets/icons/edit_white.png" alt="Icone" class="icone">
+		<span>Mode édition</span>		
+	</div>	  
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -36,9 +40,21 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div id="title-container">
+			<h2>Mes Projets</h2>
+			<div id="modifier">
+				<img src="./assets/icons/edit_black.png">
+				<span>modifier</span>
+			</div>
+		</div>
 		<div class="filter-buttons"></div>
 		<div class="gallery">
+		</div>
+		<div id="modale">
+			<img src="./assets/icons/cross.png" id="close-modale">
+			<h3>Galerie Photo</h3>
+			<div id="gallery-modale"></div>
+			<input type="button" value="Ajouter une photo">
 		</div>
 	</section>
 	<section id="contact">

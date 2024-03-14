@@ -32,7 +32,6 @@ loginForm.addEventListener("submit",function(event){
             return response.json();
         })
         .then(data => {
-            console.log(data.token);
             let token = data.token;
             // Stocker le token dans localStorage
             localStorage.setItem('token', token);

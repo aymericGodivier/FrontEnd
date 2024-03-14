@@ -1,8 +1,11 @@
 //définir les variables globales
 let worksGallery = document.querySelector(".gallery");
 let divFilters = document.querySelector(".filter-buttons");
+let logout = document.getElementById("login-button");
 let AllElements = [];
 let currentSelectedFilter;
+let editMode = false;
+let modaleOpen = false;
 
 //appel api GET /works
 function fetchWorks(){
@@ -42,8 +45,10 @@ function fetchCategories(){
     })
     .then(data => {
         getAllWorks(data);
-        createFilterAll(data);
-        createFilters(data);
+        if(editMode==false){
+            createFilterAll(data);
+            createFilters(data);
+        }
     })
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la requête:', error);
@@ -51,18 +56,20 @@ function fetchCategories(){
 }
 
 //fonction pour checker la présence du token d'identification
-
 function checkToken(){
-
+    //vérifie qu'il y a quelque chose dans le local storage
     if(localStorage.length !==0){
         let tokenRecupere = localStorage.getItem('token');
-        console.log(tokenRecupere);
+        //vérifie que c'est bien le token que l'on récupère
+        if(tokenRecupere !== null){
+            editMode = true;
+            openEditMode();
+        }
     }    
     else {
-        console.log("pas de token");
+        editMode = false;
     }
 }
-
 
 //fonction pour afficher les traveaux dans le HTML
 function displayWorks(works){
@@ -101,6 +108,11 @@ function refreshAll(listOfAll){
     });
 }
 
+//fonction pour cacher un élément
+function hideElement(item){
+    item.style.display = "none";
+}
+
 //fonction pour réaficher tous les traveaux inclus dans la liste d'objets indiquée en paramètre
 function refreshWorks(listOfWorks){
     listOfWorks.forEach(element=>{
@@ -112,7 +124,7 @@ function refreshWorks(listOfWorks){
 function hideSelection(listOfWorks){
     listOfWorks.forEach(category=>{
         category.forEach(element=>{
-            element.style.display = "none";
+            hideElement(element);
         });
     });
 }
@@ -158,13 +170,44 @@ function createFilters(categories){
     });
 }
 
-//appel toutes les fonctions qui doivent se faire au chargement du script
+//crée l'interface de l'edit mode
+function openEditMode(){
+    logout.innerHTML="logout";
+    //permet de logout et de revenir à l'état intial
+    logout.addEventListener("click", function(event){
+        if(editMode==true){
+            event.preventDefault();
+            localStorage.removeItem("token");
+            location.reload();
+        }
+    });
+    //fait apparaitre le bandeau et le bouton modifier
+    let bandeau = document.getElementById("bandeau");
+    bandeau.style.display ="flex";
+    let modifyButton = document.getElementById("modifier");
+    modifyButton.style.display ="flex";
+    //permet d'ouvrir la modale si elle n'est pas déjà ouverte
+    modifyButton.addEventListener("click",function(){
+        if(modaleOpen == false){
+            let modale = document.getElementById("modale");
+            modale.style.display ="flex";
+            modaleOpen = true;
+            let closeButton = document.getElementById("close-modale");
+            closeButton.addEventListener("click",function(){
+                hideElement(modale);
+                modaleOpen = false;
+            });
+        }
+    });
+}
+
+//appel toutes les fonctions qui doivent se faire au chargement de la page
 function initiate(){
+    //vérification de la présence du token
+    checkToken();
     //appel des deux fonctions de fetch
     fetchWorks();
     fetchCategories();
-    //appel la vérification de la présence du token
-    checkToken();
 }
 
 initiate();

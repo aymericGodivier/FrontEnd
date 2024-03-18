@@ -8,13 +8,13 @@ loginForm.addEventListener("submit",function(event){
     let userEmail = document.getElementById('email').value;
     let userPassword = document.getElementById('password').value;
     
-//construction du body pour la requête fetch
+    //construction du body pour la requête fetch
     const loginRequest = {
         "email" : userEmail,
         "password" : userPassword
     };
   
-//création de la requête fetch
+    //création de la requête fetch
     fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
         headers: {

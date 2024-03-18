@@ -51,6 +51,7 @@ table {
 .bandeau {
 	display: none;
 	position: fixed;
+	z-index: 9000;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -252,13 +253,13 @@ input[type="submit"]{
 	margin-right: 0.8em;
 }
 
-#modale {
+.modale-window {
 	display: none;
 	position: fixed; 
-	top: 30%;
-	left: 35%; 
-	right: 35%; 
-	bottom: 25%; 
+	top: 20%;
+	left: 30%; 
+	right: 30%; 
+	bottom: 20%; 
 	background-color: white;
 	flex-direction: column; 
 	align-items: center; 
@@ -267,7 +268,18 @@ input[type="submit"]{
 
 }
 
-#close-modale {
+#modale-background {
+	display: none;
+	position: fixed;
+	top :0%;
+	left: 0%;
+	z-index: 5000;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(128, 128, 128, 0.6);
+}
+
+.cross-close {
 	position: relative;
 	margin-top: 1em;
 	margin-right: 1em;
@@ -277,16 +289,50 @@ input[type="submit"]{
 
 #modale h3{
 	font-size: 2.5em;
-	margin-top: 1.5em;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #gallery-modale {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	height: 200px;
+	height: fit-content;
 	border-bottom: 3px solid gray;
-	width: 75%;
+	width: 80%;
+	padding-bottom: 20px;
+	align-items: center;
+}
+
+.modify-card {
+	display: flex;
+	width: fit-content;
+	margin: 10px;
+	margin-top: 10px;
+}
+
+.modify-img {
+	max-width: 60px;
+}
+
+.delete-icon {
+	max-width: 1em;
+	position: absolute;
+	margin-left: auto;
+	margin-top: 15px;
+	margin-right: 15px;
+	z-index: 100;
+}
+
+#image-preview {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	align-items: center;
+}
+
+#image-preview img {
+	max-width: 120px;
 }
 
 #login {

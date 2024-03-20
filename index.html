@@ -9,7 +9,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script defer src="./assets/script.js"></script>
+	<script defer src="./assets/edit.js"></script>
+	<script defer src="./assets/script.js"></script>	
 </head>
 <body>
 	<div id="bandeau" class="bandeau">
@@ -50,35 +51,37 @@
 		<div class="filter-buttons"></div>
 		<div class="gallery">
 		</div>
-		<div id="modale" class="modale-window">
-			<img src="./assets/icons/cross.png" class="cross-close" id="close-modale">
-			<h3>Galerie Photo</h3>
-			<div id="gallery-modale"></div>
-			<input type="button" value="Ajouter une photo">
-		</div>
-		<div id="modale-background"></div>
-		<div id="add-work" class="modale-window">
-			<img src="./assets/icons/cross.png" class="cross-close" id="close-add-work">
-			<h3>Ajout Photo</h3>
-			<form action="./assets/images" method="post" enctype="multipart/form-data">
-				<div id="image-preview">
-					<img src="./assets/icons/image.png">
-					<input type="file" id="fileInput" name="fileInput" accept="image/jpeg,image/png" aria-label="input-image" value="+ Ajouter Photo">
-					<span>jpg, png : 4mo max</span>
-				</div>
-				<label for="image-name">Titre</label>
-				<input type="text" name="image-name">
-				<label for="choice-category">Catégorie</label>
-				<select id="choose-category" name="choice-category">
-				  <option value="objets">Objets</option>
-				  <option value="appartements">Appartements</option>
-				  <option value="hotels & restaurants">Hôtels & Restaurants</option>
-				</select>
-							
-				<input type="submit" value="Upload">
-			</form>			  
-		</div>
 	</section>
+	<div id="modale" class="modale-window">
+		<img src="./assets/icons/cross.png" class="cross-close">
+		<h3>Galerie Photo</h3>
+		<div id="gallery-modale"></div>
+		<input type="button" value="Ajouter une photo" id="add-photo">
+	</div>
+	<div id="modale-background"></div>
+	<div id="add-work" class="modale-window">
+		<img src="./assets/icons/cross.png" class="cross-close">
+		<img src="./assets/icons/arrow-left-icon.png" id="back-arrow">
+		<h3>Ajout Photo</h3>
+		<form method="post" enctype="multipart/form-data" id="add-work-form">
+			<div id="image-preview">
+				<img src="./assets/icons/image.png" id="work-image">
+				<input type="file" id="fileInput" accept="image/jpeg,image/png">
+				<input type="button" value="+ Ajouter Photo" id="addImage" aria-label="input-image">
+				<span id="imgTypeInstruction">jpg, png : 4mo max</span>
+			</div>
+			<label for="image-name">Titre</label>
+			<input type="text" id="image-name" required>
+			<label for="choose-category">Catégorie</label>
+			<select id="choose-category" required>
+				<option value="" selected disabled></option>
+			  	<option value="Objets">Objets</option>
+			  	<option value="Appartements">Appartements</option>
+			  	<option value="Hotels & restaurants">Hôtels & Restaurants</option>
+			</select>							
+			<input type="submit" value="Valider" id="workSubmit">
+		</form>			  
+	</div>
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>

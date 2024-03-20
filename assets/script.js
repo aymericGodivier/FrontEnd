@@ -6,8 +6,6 @@ let AllElements = [];
 let worksData;
 let currentSelectedFilter;
 let editMode = false;
-let modaleOpen = false;
-let addWorksOpen = false;
 
 //appel toutes les fonctions qui doivent se faire au chargement de la page
 function initiate(){
@@ -19,26 +17,25 @@ function initiate(){
 }
 
 //appel api GET /works
-function fetchWorks(){
-    fetch('http://localhost:5678/api/works', {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json'
-    }
-})
-    .then(response => {
+async function fetchWorks() {
+    try {
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
         if (!response.ok) {
             throw new Error(`Erreur HTTP ${response.status}`);
         }
-        return response.json();
-    })
-    .then(data => {
+
+        const data = await response.json();
         worksData = data;
         displayWorks(data);
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Une erreur s\'est produite lors de la requête:', error);
-    });
+    }
 }
 
 //appel api GET/categories
@@ -64,27 +61,6 @@ function fetchCategories(){
     })
     .catch(error => {
         console.error('Une erreur s\'est produite lors de la requête:', error);
-    });
-}
-
-//appel API DELETE /works/Id
-function deleteWorks(worksId,token){
-    fetch('http://localhost:5678/api/works/'+worksId, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur de réseau lors de la tentative de suppression de la ressource');
-        }
-        console.log('La ressource a été supprimée avec succès');
-    })
-    .catch(error => {
-        console.error('Une erreur s\'est produite:', error);
     });
 }
 
@@ -203,86 +179,6 @@ function createFilters(categories){
         });
         divFilters.appendChild(buttonFilter);
     });
-}
-//permet d'afficher la modale
-function createModaleGallery(){
-    let modaleGallery = document.getElementById("gallery-modale");
-    //reset contenue de la gallerie
-    modaleGallery.innerHTML="";
-    worksData.forEach(element=>{        
-        //création de la figure qui contient les images
-        let worksFigure = document.createElement("figure");
-        worksFigure.classList.add("modifiy-card");
-        //création de l'image
-        let worksImage = document.createElement("img");
-        worksImage.src = element.imageUrl;
-        worksImage.alt = element.title;
-        worksImage.classList.add("modify-img");
-        //création de l'icone de poubelle
-        let trashImage = document.createElement("img");
-        trashImage.src = "./assets/icons/trash.png";
-        trashImage.classList.add("delete-icon");
-        trashImage.id = element.id;
-        //permet de supprimer un travail
-        trashImage.addEventListener("click",function(){
-            let token = localStorage.getItem('token');
-            deleteWorks(this.id,token);
-            fetchWorks();            
-            createModaleGallery();
-        });
-        //ajout des éléments à la figure
-        worksFigure.appendChild(trashImage);
-        worksFigure.appendChild(worksImage);        
-        modaleGallery.appendChild(worksFigure);        
-    });
-}
-//permet de fermer la modale
-function closeModale(){
-    let modaleGallery = document.getElementById("gallery-modale");
-    let background = document.getElementById("modale-background");
-    modaleGallery.innerHTML ="";
-    hideElement(modale);
-    hideElement(background);
-    modaleOpen = false;
-}
-
-//crée l'interface de l'edit mode
-function openEditMode(){
-    logout.innerHTML="logout";
-    //permet de logout et de revenir à l'état intial
-    logout.addEventListener("click", function(event){
-        if(editMode==true){
-            event.preventDefault();
-            localStorage.removeItem("token");
-            location.reload();
-        }
-    });
-    //fait apparaitre le bandeau et le bouton modifier
-    let bandeau = document.getElementById("bandeau");
-    bandeau.style.display ="flex";
-    let modifyButton = document.getElementById("modifier");
-    modifyButton.style.display ="flex";
-    //permet d'ouvrir la modale si elle n'est pas déjà ouverte
-    modifyButton.addEventListener("click",function(){
-        if(modaleOpen == false){
-            let modale = document.getElementById("modale");
-            modale.style.display ="flex";
-            let background = document.getElementById("modale-background");
-            background.style.display="flex";
-            modaleOpen = true;
-            createModaleGallery();
-            //ajout de la fermeture de la modale
-            let closeButton = document.getElementById("close-modale");
-            closeButton.addEventListener("click",function(){
-                closeModale();
-            });
-            //background.addEventListener("click",closeModale());
-            background.addEventListener("click", function(){
-                closeModale();
-            })
-          
-        }
-    });    
 }
 
 //appel initiate

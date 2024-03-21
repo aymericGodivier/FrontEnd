@@ -35,20 +35,28 @@ async function addWork(imgWorks,workTitle,workCategory,token){
     formData.append("title", workTitle);
     formData.append("category", workCategory);
 
+    console.log(formData);
+
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData),
+
+        body: formData,
+        
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Erreur de réseau lors de la tentative d\'envoie du formulaire');
         }
         console.log('Le formulaire a été envoyé avec succès');
+        (async () => {
+            await fetchWorks();
+            closeModale();
+            openModale();
+        })();
+
     })
     .catch(error => {
         console.error('Une erreur s\'est produite:', error);

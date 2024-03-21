@@ -256,11 +256,11 @@ input[type="submit"]{
 .modale-window {
 	display: none;
 	position: fixed;
-	max-width: 600px; 
-	top: 15%;
-	left: 35%; 
-	right: 35%; 
-	bottom: 15%; 
+	height: 670px;
+	width: 630px; 
+	top: 12%;
+	left: 35%;
+	right: 35%;
 	background-color: white;
 	flex-direction: column; 
 	align-items: center; 
@@ -340,7 +340,7 @@ input[type="submit"]{
 	height: 40px;
 	background-color: #1D6154;
 	color: white;
-	margin-top: 20px;
+	margin-top: 30px;
 	padding-left: 50px;
 	padding-right: 50px;
 	margin-bottom: 24px;
@@ -365,22 +365,43 @@ input[type="submit"]{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: gray;
+	background-color: #E8F1F6;
 	justify-content: center;
-	max-height: 150px;
+	height: 160px;
 }
 
 #work-image {
-	max-width: 120px;
-	max-height: 100px;
+	max-width: 76px;
+	max-height: 76px;
 }
 
 #fileInput {
 	display: none;
 }
 
+#addImage {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 12px;
+	height: 30px;
+	background-color: #CBD6DC;
+	color: #306685;
+	margin-top: 20px;
+	padding: 5px;
+	margin-bottom: 24px;
+	text-align: center;
+	border-radius: 60px;
+}
+
 #addImage, #imgTypeInstruction {
 	margin: 5px;
+}
+
+#submitContainer {
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+	border-top: 3px solid grey;
 }
 
 #workSubmit {

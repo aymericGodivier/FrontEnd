@@ -5,6 +5,17 @@ let imageUploaded = false;
 let titleGiven = false;
 let categoryChosen = false;
 
+//récupère tous les composants de la fenêtre addwork
+let addWorks = document.getElementById("add-work");
+let form = document.getElementById("add-work-form");
+let workImage = document.getElementById("work-image");
+let imgSpan = document.getElementById("imgTypeInstruction");
+let addImageBtn = document.getElementById("addImage");
+let inputFile = document.getElementById("fileInput");
+let title = document.getElementById("image-name");
+let select = document.getElementById("choose-category");
+let submit = document.getElementById("workSubmit");
+
 //appel API DELETE /works/Id
 function deleteWorks(worksId,token){
     fetch('http://localhost:5678/api/works/'+worksId, {
@@ -35,7 +46,6 @@ async function addWork(imgWorks,workTitle,workCategory,token){
     formData.append("title", workTitle);
     formData.append("category", workCategory);
 
-    console.log(formData);
 
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
@@ -82,7 +92,12 @@ function openEditMode(){
     //permet d'ouvrir la modale si elle n'est pas déjà ouverte
     modifyButton.addEventListener("click",function(){
         openModale();
-    });    
+    });
+    //permet d'ouvrir la fenetre add-works
+    let addButton = document.getElementById("add-photo");
+    addButton.addEventListener("click", function(){
+        openAddWorks();
+    })    
 }
 
 //permet d'afficher la modale
@@ -142,11 +157,7 @@ function createModaleGallery(){
         worksFigure.appendChild(worksImage);        
         modaleGallery.appendChild(worksFigure);        
     });
-    //permet d'ouvrir la fenetre add-works
-    let addButton = document.getElementById("add-photo");
-    addButton.addEventListener("click", function(){
-        openAddWorks();
-    })
+
 }
 //permet de fermer la modale
 function closeModale(){
@@ -181,18 +192,11 @@ function titleUpdate(title){
     }
     updateUpload();
 }
+
+
 //ouvrir la fenetre d'ajout de travaux
 function openAddWorks(){
-    //récupère tous les composants de la fenêtre
-    let addWorks = document.getElementById("add-work");
-    let form = document.getElementById("add-work-form");
-    let workImage = document.getElementById("work-image");
-    let imgSpan = document.getElementById("imgTypeInstruction");
-    let addImageBtn = document.getElementById("addImage");
-    let inputFile = document.getElementById("fileInput");
-    let title = document.getElementById("image-name");
-    let select = document.getElementById("choose-category");
-    let submit = document.getElementById("workSubmit");
+
     //cache modale et affiche addworks
     if(modaleOpen==true && addWorksOpen== false){
         let modale = document.getElementById("modale");
@@ -200,8 +204,7 @@ function openAddWorks(){
         modaleOpen = false;
         addWorks.style.display="flex";
         addWorksOpen=true;
-        //reset des composants de addworks
-        form.reset();
+        //reset des composants de addworks        
         inputFile.value = '';
         workImage.src="./assets/icons/image.png";
         imgSpan.style.display = "block";
@@ -210,51 +213,17 @@ function openAddWorks(){
         titleGiven = false;
         categoryChosen = false;
         submit.disabled = true;
+        form.reset();
+        resetEvent();
+        //crée les event listener
+        addImageBtn.addEventListener("click", handleAddImageBtnClick);
+        inputFile.addEventListener("change", handleInputFileChange);
+        title.addEventListener("input", handleTitleInput);
+        title.addEventListener("keydown", handleTitleKeydown);
+        select.addEventListener("change", handleSelectChange);
+        submit.addEventListener("click", handleSubmitClick);
         updateUpload();
-        //faire que le bouton active le input type file
-        addImageBtn.addEventListener("click", function(){
-            inputFile.click();
-        });
-        //récupère et affiche l'image et cache les boutons
-        inputFile.addEventListener("change",function(){
-            let file = this.files[0];
-            if(file){
-                let imgURL = URL.createObjectURL(file);
-                workImage.src = imgURL;
-                imageUploaded= true;
-                hideElement(addImageBtn);
-                hideElement(imgSpan);
-                updateUpload();
-            }
-            
-        });
-        //vérifie si le titre contient quelque chose
-        title.addEventListener("input", function(){
-            titleUpdate(title);
-        })
-
-        title.addEventListener("keydown", function(){
-            titleUpdate(title);
-        })
-        //vérifie qu'on a sélectionné une option
-        select.addEventListener("change", function(event){
-            if(event.target.value !== ""){
-                categoryChosen = true;
-            }
-            else{
-                categoryChosen = false;
-            }
-            updateUpload();
-        })
-        //créé le contenu de la requete POST /works
-        submit.addEventListener("click",function(event){
-            event.preventDefault();
-            let img = inputFile.files[0];
-            let workTitle = title.value;
-            let category = select.value;
-            let token = localStorage.getItem('token');
-            addWork(img,workTitle,category,token);
-        })
+ 
     }
     //permet de revenir en arrière
     let backArrow = document.getElementById("back-arrow");
@@ -266,4 +235,59 @@ function openAddWorks(){
         }
     })
     
+}
+
+// Définition des fonctions de gestionnaire d'événements
+
+//permet de cliquer sur l'input
+function handleAddImageBtnClick() {
+            inputFile.click();
+}
+//récupère le contenu de l'input file
+function handleInputFileChange() {
+    let file = this.files[0];
+    if(file){
+        let imgURL = URL.createObjectURL(file);
+        workImage.src = imgURL;
+        imageUploaded= true;
+        hideElement(addImageBtn);
+        hideElement(imgSpan);
+        updateUpload();
+    }
+}
+//check si le titre est vide via input
+function handleTitleInput() {
+     titleUpdate(title);
+}
+//check si le titre est vide lors d'un keydown
+function handleTitleKeydown() {
+    titleUpdate(title);
+}
+//vérifie que la catégorie a été sélectionné
+function handleSelectChange(event) {
+    if(event.target.value !== ""){
+        categoryChosen = true;
+    }
+    else{
+        categoryChosen = false;
+    }
+    updateUpload();
+}
+//récupère le contenu des inputs et appelle addwork
+function handleSubmitClick(event) {
+    event.preventDefault();
+    let img = inputFile.files[0];
+    let workTitle = title.value;
+    let category = select.value;
+    let token = localStorage.getItem('token');
+    addWork(img,workTitle,category,token);
+}
+//supprime les écouteurs pour éviter d'appeler plusieurs fois les événements
+function resetEvent(){
+    addImageBtn.removeEventListener("click", handleAddImageBtnClick);
+    inputFile.removeEventListener("change", handleInputFileChange);
+    title.removeEventListener("input", handleTitleInput);
+    title.removeEventListener("keydown", handleTitleKeydown);
+    select.removeEventListener("change", handleSelectChange);
+    submit.removeEventListener("click", handleSubmitClick);
 }

@@ -37,11 +37,8 @@ loginForm.addEventListener("submit",function(event){
                 // Stocker le token dans localStorage
                 localStorage.setItem('token', token);
                 errorMessage.innerHTML = "";
-                // Redirection vers la page d'accueil après un délai de 2 secondes
-
-                setTimeout(function() {
-                    window.location.href = "index.html";
-                }, 2000);
+                // Redirection vers la page d'accueil
+                window.location.href = "index.html";
             })
             .catch(error => {
                 console.error('Une erreur s\'est produite lors de la requête:', error);
